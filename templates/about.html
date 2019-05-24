@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Modern Business - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+  <link href="/static/modern-business.css" rel="stylesheet"  type="text/css">
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href={{url_for('home')}}>AuctionGo!</a>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">About
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href={{url_for('home')}}>Home</a>
+      </li>
+      <li class="breadcrumb-item active">About</li>
+    </ol>
+
+    <!-- Intro Content -->
+    <div class="row">
+      <div class="col-lg-4">
+        <img class="img-fluid rounded mb-4" src={{img}} alt="">
+      </div>
+      <div class="col-lg-4">
+        <h2>Auction detail</h2>
+        {% for ele in listing.find('auction_info').getchildren() %}
+        {% if ele.text %}
+        <p><b>{{ ele.tag }}</b> : {{ ele.text }}</p>
+        {% endif %}
+        {% endfor %}
+      </div>
+      <div class="col-lg-4">
+        <h2>Payment detail</h2>
+        <p><b>Seller name:</b> {{listing.find('seller_info').find('seller_name').text}}</p>
+        <p><b>Payment types:</b> {{listing.find('payment_types').text}}</p>
+        <p><b>Shipping info:</b> {{listing.find('shipping_info').text}}</p>
+        <!-- <p><b>Buyer protection info:</b> {{listing.find('buyer_protection_info').text}}</p> -->
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <h2>Description</h2>
+    <p>
+      {% for i in listing.find('item_info').getchildren() %}
+      {% if i.text %}
+      {% if i.text != ' ' %}
+      <p><b>{{ i.tag }} :</b> {{ i.text }}</p>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+    </p>
+    <div>
+
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="/static/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

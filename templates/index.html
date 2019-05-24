@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Modern Business - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+  <link href="/static/modern-business.css" rel="stylesheet"  type="text/css">
+
+</head>
+
+<body style="padding-top: 56px;">
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href={{url_for('home')}}>AuctionGo!</a>
+    </div>
+  </nav>
+
+  <header>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <!-- Slide One - Set the background image for this slide in the line below -->
+        <div class="carousel-item active" style="background-image: url('https://www.gannett-cdn.com/-mm-/81667c78b3b803e2519a868b5a3309b72c3c6ead/c=0-0-4088-2310/local/-/media/2018/01/18/USATODAY/USATODAY/636518958643769410-EPA-FILE-USA-ECONOMY-EBAY-81477693.JPG?width=3200&height=1680&fit=crop')">
+          <!-- <div class="carousel-caption d-none d-md-block">
+            <h3>First Slide</h3>
+            <p>This is a description for the first slide.</p>
+          </div> -->
+        </div>
+        <!-- Slide Two - Set the background image for this slide in the line below -->
+        <div class="carousel-item" style="background-image: url('https://static.newmobilelife.com/wp-content/uploads/2016/09/yahoo-500m-account-hacked_00.jpg')">
+          <!-- <div class="carousel-caption d-none d-md-block">
+            <h3>Second Slide</h3>
+            <p>This is a description for the second slide.</p>
+          </div> -->
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <div class="container">
+
+  <h1 class="my-4">Welcome to AuctionGO!</h1>
+
+  <!-- Search Widget -->
+  <!-- <div class="card mb-4">
+    <h3 class="card-header">Search</h3>
+    <div class="card-body">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for...">
+        <span class="input-group-btn">
+          <button class="btn btn-secondary" type="button">Go!</button>
+        </span>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- *********************************************************************** -->
+  
+  <!-- Content Row -->
+  <div class="row">
+    {% for auc in auctions %}
+    {% if auc['auction_info'].find('time_left').text %}
+    {% if auc['auction_info'].find('time_left').text != ' ' %}
+    <div class="col-lg-4 mb-4">
+      <div class="card">
+        <h3 class="card-header">{{auc['auction_info'].find('time_left').text}}</h3>
+        <div class="card-body">
+          <div class="display-4">{{auc['auction_info'].find('current_bid').text}}</div>
+          <div class="font-italic">{{auc['auction_info'].find('location').text}}</div>
+        </div>
+        <ul class="list-group list-group-flush">
+          {% if auc['brand'].text %}
+          {% if auc['brand'].text != ' ' %}
+          <li class="list-group-item">{{auc['brand'].text}}</li>
+          {% endif %}
+          {% endif %}
+          {% if auc['memory'].text %}
+          {% if auc['memory'].text != ' ' %}
+          <li class="list-group-item">{{auc['memory'].text}}</li>
+          {% endif %}
+          {% endif %}
+          {% if auc['cpu'].text %}
+          {% if auc['cpu'].text != ' ' %}
+          <li class="list-group-item">{{auc['cpu'].text}}</li>
+          {% endif %}
+          {% endif %}
+          {% if auc['hard_drive'].text %}
+          {% if auc['hard_drive'].text != ' ' %}
+          <li class="list-group-item">{{auc['hard_drive'].text}}</li>
+          {% endif %}
+          {% endif %}
+          <li class="list-group-item">
+            <a href={{url_for('about', auctionid=auc['auction_info'].find('id_num').text)}} class="btn btn-primary">Detail</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
+
+    <!-- <div class="col-lg-4 mb-4">
+      <div class="card card-outline-primary h-100">
+        <h3 class="card-header bg-primary text-white">Plus</h3>
+        <div class="card-body">
+          <div class="display-4">$39.99</div>
+          <div class="font-italic">per month</div>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Cras justo odio</li>
+          <li class="list-group-item">Dapibus ac facilisis in</li>
+          <li class="list-group-item">Vestibulum at eros</li>
+          <li class="list-group-item">
+            <a href="#" class="btn btn-primary">Sign Up!</a>
+          </li>
+        </ul>
+      </div>
+    </div> -->
+  </div>
+  <!-- *********************************************************************** -->
+
+  </div>
+  
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="/static/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
